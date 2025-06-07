@@ -17,6 +17,8 @@ Redesign the **"Choose Your Skip Size"** page from [WeWantWaste.co.uk](https://w
   ```
 - 📋 Interactive skip selection with summary drawer
 - 🛒 Context-aware UI that adapts to user interaction
+- ⏳ **Card-based skeleton loading UI** while fetching skips
+- ⚙️ **Dropdown sorting** by price or skip size
 - 🔁 **Loading and Error states** with fallback UI
 
 ---
@@ -61,6 +63,18 @@ I focused on delivering a modern UI with enhanced interactivity, visual clarity,
   - Shows skip info and CTA buttons
   - Includes a **hide button**
 - When hidden, a **circular eye icon** toggles the summary visibility
+
+### ⏳ Skeleton Loading State
+- Replaced the default spinner with **skeleton cards** that visually match the real skip cards
+- Improves perceived performance and UI consistency
+- Skeletons render inside the same grid layout as real skips
+
+### 🧮 Sort Functionality
+- Added a **dropdown menu** aligned to the top-right of the grid
+- Supports sorting skips:
+- By **price** (Low → High, High → Low)
+- By **size** (Small → Large, Large → Small)
+- Sorting is applied client-side and updates immediately on change
 
 ### 🚨 Error & Loading Handling
 - Used `useFetch` custom hook with **Axios**

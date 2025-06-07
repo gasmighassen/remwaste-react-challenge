@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, Typography, useTheme as useMuiTheme } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useTheme as useMuiTheme,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import type { SkipData } from "../types/Skip";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -7,11 +15,14 @@ import SkipGrid from "./SkipGrid";
 import LoadingState from "./LoadingState";
 import ErrorState from "./ErrorState";
 import SelectedSkipCard from "./SelectedSkipCard";
-import useFetch from "../hooks/useFetch"; 
+import useFetch from "../hooks/useFetch";
 
 const SkipSelection: React.FC = () => {
   const muiTheme = useMuiTheme();
   const [selectedSkip, setSelectedSkip] = useState<SkipData | null>(null);
+  const [sortOption, setSortOption] = useState<
+    "none" | "price-asc" | "price-desc" | "size-asc" | "size-desc"
+  >("none");
 
   const {
     data: skips,
@@ -33,6 +44,21 @@ const SkipSelection: React.FC = () => {
   const handleBack = () => {
     setSelectedSkip(null);
   };
+
+  const sortedSkips = (skips || []).slice().sort((a, b) => {
+    switch (sortOption) {
+      case "price-asc":
+        return a.price_before_vat - b.price_before_vat;
+      case "price-desc":
+        return b.price_before_vat - a.price_before_vat;
+      case "size-asc":
+        return a.size - b.size;
+      case "size-desc":
+        return b.size - a.size;
+      default:
+        return 0;
+    }
+  });
 
   return (
     <Box
@@ -72,13 +98,41 @@ const SkipSelection: React.FC = () => {
             >
               Choose Your Skip Size
             </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-            >
+            <Typography variant="body1" color="text.secondary">
               Select the skip size that best suits your needs
             </Typography>
           </Box>
+
+          {/* Sort Dropdown */}
+       <Box display="flex" justifyContent="flex-end" mb={3}>
+  <Box maxWidth={300} width="100%">
+    <FormControl fullWidth size="small">
+      <InputLabel id="sort-label">Sort by</InputLabel>
+      <Select
+        labelId="sort-label"
+        value={sortOption}
+        label="Sort by"
+        onChange={(e) =>
+          setSortOption(
+            e.target.value as
+              | "none"
+              | "price-asc"
+              | "price-desc"
+              | "size-asc"
+              | "size-desc"
+          )
+        }
+      >
+        <MenuItem value="none">None</MenuItem>
+        <MenuItem value="price-asc">Price: Low to High</MenuItem>
+        <MenuItem value="price-desc">Price: High to Low</MenuItem>
+        <MenuItem value="size-asc">Size: Small to Large</MenuItem>
+        <MenuItem value="size-desc">Size: Large to Small</MenuItem>
+      </Select>
+    </FormControl>
+  </Box>
+</Box>
+
 
           {error && <ErrorState error={error} onRetry={refetch} />}
 
@@ -86,7 +140,7 @@ const SkipSelection: React.FC = () => {
             <LoadingState />
           ) : (
             <SkipGrid
-              skips={skips || []}
+              skips={sortedSkips}
               selectedSkip={selectedSkip}
               onSkipSelect={handleSkipSelect}
             />
