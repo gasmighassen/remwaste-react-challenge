@@ -1,4 +1,3 @@
-"use client"
 
 import React from "react"
 import { Typography, Button, Paper, Stack } from "@mui/material"

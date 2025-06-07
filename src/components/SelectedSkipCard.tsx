@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useEffect, useState } from "react"
 import { useTheme as useAppTheme } from "../contexts/AppThemeProvider"
 import type { SkipData } from "../types/Skip"
@@ -79,7 +77,11 @@ const SelectedSkipCard: React.FC<SelectedSkipCardProps> = ({ skip, onBack, onCon
             </Typography>
 
             <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-              <Typography variant="h5" color="primary" fontWeight="bold">
+              <Typography   variant="h5"
+  fontWeight="bold"
+  sx={{
+    color: isDarkMode ? "common.white" : "primary.main",
+  }}>
                 £{skip.price_before_vat.toFixed(0)}
               </Typography>
               <Typography variant="body2" color="text.secondary">

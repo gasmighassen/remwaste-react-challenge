@@ -1,5 +1,3 @@
-"use client"
-
 import React from "react"
 import { Backdrop, CircularProgress, Typography, useTheme } from "@mui/material"
 

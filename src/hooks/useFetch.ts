@@ -1,5 +1,5 @@
-
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T | null>(null);
@@ -10,14 +10,10 @@ const useFetch = <T>(url: string) => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const json = await response.json();
-      setData(json);
-    } catch (err) {
-      setError((err as Error).message || "Something went wrong");
+      const response = await axios.get<T>(url);
+      setData(response.data);
+    } catch (err: any) {
+      setError(err?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
