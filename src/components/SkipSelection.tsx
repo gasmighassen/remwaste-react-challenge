@@ -85,27 +85,36 @@ const SkipSelection: React.FC = () => {
             width: "100%",
           }}
         >
-          <Box mb={4}>
-            <Typography
-              variant="h4"
-              fontWeight="bold"
-              color={
-                muiTheme.palette.mode === "dark"
-                  ? "common.white"
-                  : "text.primary"
-              }
-              gutterBottom
-            >
-              Choose Your Skip Size
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Select the skip size that best suits your needs
-            </Typography>
-          </Box>
+    <Box
+  mb={4}
+  display="flex"
+  flexDirection={{ xs: "column", md: "row" }}
+  alignItems={{ md: "center" }}
+  justifyContent="space-between"
+  gap={2}
+>
+  <Box>
+    <Typography
+      variant="h5"
+      fontWeight={700}
+      color={
+        muiTheme.palette.mode === "dark"
+          ? "common.white"
+          : "text.primary"
+      }
+    >
+      Choose Your Skip Size
+    </Typography>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      sx={{ mt: 0.5 }}
+    >
+      Select the skip size that best suits your needs
+    </Typography>
+  </Box>
 
-          {/* Sort Dropdown */}
-       <Box display="flex" justifyContent="flex-end" mb={3}>
-  <Box maxWidth={300} width="100%">
+  <Box maxWidth={240} width="100%">
     <FormControl fullWidth size="small">
       <InputLabel id="sort-label">Sort by</InputLabel>
       <Select
@@ -132,6 +141,7 @@ const SkipSelection: React.FC = () => {
     </FormControl>
   </Box>
 </Box>
+
 
 
           {error && <ErrorState error={error} onRetry={refetch} />}
