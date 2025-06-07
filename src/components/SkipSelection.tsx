@@ -89,7 +89,7 @@ const SkipSelection: React.FC = () => {
   mb={4}
   display="flex"
   flexDirection={{ xs: "column", md: "row" }}
-  alignItems={{ md: "center" }}
+  alignItems={{ md: "center",xs: "center" }}
   justifyContent="space-between"
   gap={2}
 >
