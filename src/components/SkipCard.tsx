@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState } from "react"
 import {
   Card,
@@ -27,7 +25,6 @@ const SkipCard: React.FC<SkipCardProps> = ({
   skip,
   isSelected,
   onSelect,
-  
   animationDelay,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -67,7 +64,7 @@ const SkipCard: React.FC<SkipCardProps> = ({
       <Box
         sx={{
           position: "relative",
-          height: "10rem",
+          height: "9rem",
           borderTopLeftRadius: theme.shape.borderRadius,
           borderTopRightRadius: theme.shape.borderRadius,
           overflow: "hidden",
@@ -97,14 +94,15 @@ const SkipCard: React.FC<SkipCardProps> = ({
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          gap: 1,
+          gap:0.5,
           color: isDarkMode ? "#fff" : "inherit",
+          py:1
         }}
       >
         {/* Title */}
         <Typography
-          variant="h6"
-          fontWeight={700}
+          variant="subtitle1"
+          fontWeight={600}
           color={isDarkMode ? "#fff" : theme.palette.primary.main}
         >
           {skip.size} Yard Skip

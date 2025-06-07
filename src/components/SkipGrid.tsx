@@ -1,5 +1,3 @@
-"use client"
-
 import React from "react"
 import type { SkipData } from "../types/Skip"
 import SkipCard from "./SkipCard"

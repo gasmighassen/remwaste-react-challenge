@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Typography, useTheme as useMuiTheme } from "@mui/material";
 import type { SkipData } from "../types/Skip";
 import Header from "./Header";
@@ -9,38 +7,20 @@ import SkipGrid from "./SkipGrid";
 import LoadingState from "./LoadingState";
 import ErrorState from "./ErrorState";
 import SelectedSkipCard from "./SelectedSkipCard";
+import useFetch from "../hooks/useFetch"; 
 
 const SkipSelection: React.FC = () => {
   const muiTheme = useMuiTheme();
-  const [skips, setSkips] = useState<SkipData[]>([]);
   const [selectedSkip, setSelectedSkip] = useState<SkipData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchSkips();
-  }, []);
-
-  const fetchSkips = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch(
-        "https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft"
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch skip options");
-      }
-      const data = await response.json();
-      console.log(data)
-      setSkips(data);
-    } catch (error) {
-      setError("Failed to load skip options. Please try again.");
-      console.error("Error fetching skips:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    data: skips,
+    loading,
+    error,
+    refetch,
+  } = useFetch<SkipData[]>(
+    "https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft"
+  );
 
   const handleSkipSelect = (skip: SkipData) => {
     setSelectedSkip((prev) => (prev?.id === skip.id ? null : skip));
@@ -58,16 +38,17 @@ const SkipSelection: React.FC = () => {
     <Box
       sx={{
         minHeight: "100vh",
-      minWidth:"99vw",
-        bgcolor: muiTheme.palette.mode === "dark" ? "background.default" : "#f5f5f5",
+        minWidth: "99vw",
+        bgcolor:
+          muiTheme.palette.mode === "dark"
+            ? "background.default"
+            : "#f5f5f5",
         transition: "all 0.3s",
       }}
     >
       <Header />
-
       <Box display="flex">
         <Sidebar selectedSkip={selectedSkip} />
-
         <Box
           component="main"
           sx={{
@@ -82,29 +63,32 @@ const SkipSelection: React.FC = () => {
             <Typography
               variant="h4"
               fontWeight="bold"
-              color={muiTheme.palette.mode === "dark" ? "common.white" : "text.primary"}
+              color={
+                muiTheme.palette.mode === "dark"
+                  ? "common.white"
+                  : "text.primary"
+              }
               gutterBottom
             >
               Choose Your Skip Size
             </Typography>
             <Typography
               variant="body1"
-              color={muiTheme.palette.mode === "dark" ? "text.secondary" : "text.secondary"}
+              color="text.secondary"
             >
               Select the skip size that best suits your needs
             </Typography>
           </Box>
 
-          {error && <ErrorState error={error} onRetry={fetchSkips} />}
+          {error && <ErrorState error={error} onRetry={refetch} />}
 
           {loading ? (
             <LoadingState />
           ) : (
             <SkipGrid
-              skips={skips}
+              skips={skips || []}
               selectedSkip={selectedSkip}
               onSkipSelect={handleSkipSelect}
-              
             />
           )}
         </Box>
@@ -113,7 +97,6 @@ const SkipSelection: React.FC = () => {
       {selectedSkip && (
         <SelectedSkipCard
           skip={selectedSkip}
-          
           onBack={handleBack}
           onContinue={handleContinue}
         />
