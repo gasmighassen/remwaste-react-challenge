@@ -134,6 +134,11 @@ Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---
 
+## Live Demo
+
+Check out the live version of the project here: [remwastee.netlify.app](https://remwastee.netlify.app/)
+
+---
 
 ## 📬 Submission
 
