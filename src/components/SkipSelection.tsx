@@ -21,8 +21,8 @@ const SkipSelection: React.FC = () => {
   const muiTheme = useMuiTheme();
   const [selectedSkip, setSelectedSkip] = useState<SkipData | null>(null);
   const [sortOption, setSortOption] = useState<
-    "none" | "price-asc" | "price-desc" | "size-asc" | "size-desc"
-  >("none");
+   "price-asc" | "price-desc" | "size-asc" | "size-desc"
+  >("price-asc");
 
   const {
     data: skips,
@@ -124,7 +124,7 @@ const SkipSelection: React.FC = () => {
         onChange={(e) =>
           setSortOption(
             e.target.value as
-              | "none"
+        
               | "price-asc"
               | "price-desc"
               | "size-asc"
@@ -132,7 +132,7 @@ const SkipSelection: React.FC = () => {
           )
         }
       >
-        <MenuItem value="none">None</MenuItem>
+ 
         <MenuItem value="price-asc">Price: Low to High</MenuItem>
         <MenuItem value="price-desc">Price: High to Low</MenuItem>
         <MenuItem value="size-asc">Size: Small to Large</MenuItem>

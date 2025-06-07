@@ -61,7 +61,7 @@ export const AppThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
         paper: isDarkMode ? "#1e1e1e" : "#f5f5f5",
       },
       text: {
-        primary: isDarkMode ? "#ffffff" : "#000000",
+        primary: isDarkMode ? "#ffffff" : "#333333",
         secondary: isDarkMode ? "#dddddd" : "#333333",
       },
     },
