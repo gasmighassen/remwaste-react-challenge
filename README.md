@@ -78,10 +78,8 @@ I focused on delivering a modern UI with enhanced interactivity, visual clarity,
 
 ### 🚨 Error & Loading Handling
 - Used `useFetch` custom hook with **Axios**
-- While fetching data:
-  - A **loading spinner** or fallback message is shown
 - On error:
-  - A **graceful error message** is rendered with option to retry
+- A **graceful error message** with retry button is shown
 
 ### 🎨 Custom Theming
 Implemented dark/light theming via `ThemeContext` and MUI's theme provider. The theme includes:
